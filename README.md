@@ -1,3 +1,28 @@
+# Pluginstall
+
+Install pluginstall https://github.com/alunny/pluginstall
+
+## Assuming you're not using windows
+
+src is a symlink to native, this won't work on windows.  The directory will be renamed later.
+
+## Create an new android project
+
+	cd /usr/local/phonegap-1.9.0/lib/android	
+	./bin/create ~/hackbook-android com.example.cordova.facebook.hackbook Hackbook
+
+## Install the Plugin and Sample Hackbook App
+
+	cd ~/hackbook-android
+	pluginstall android . ~/phonegap-plugin-facebook-connect/
+
+## Manual Configuration
+
+* edit FbDialog.java and import R.java
+* edit index.html and set Facebook App Id around 321
+* set SDK version to 8 in AndroidManifest.xml <uses-sdk android:minSdkVersion="8" />
+* set Android Key Hash on Facebook Page http://developers.facebook.com/docs/mobile/android/build/#sig
+
 # Apache Cordova Facebook Connect Plugin
 
 This is the official plugin for Facebook Connect in Apache Cordova/PhoneGap!

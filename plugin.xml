@@ -1,0 +1,90 @@
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="org.apache.cordova.facebook.Connect"
+    version="1.0.0">
+	<engines>
+	    <engine name="cordova" version="1.9.0" />
+	    <engine name="cordova" version="2.0.0" />
+	</engines>
+	
+	<name>Apache Cordova Facebook Connect Plugin</name>
+	
+	<asset src="www/cdv-plugin-fb-connect.js" target="cdv-plugin-fb-connect.js" />
+	<asset src="lib/facebook_js_sdk.js" target="facebook_js_sdk.js" />
+	<asset src="example/HackBook/" target="" />
+	
+	<!-- works for Android, but doesn't work in the platform section -->
+	<asset src="lib/facebook-android-sdk/facebook/src/" target="../../src" />
+	<asset src="lib/facebook-android-sdk/facebook/res/" target="../../res" />
+	
+	<platform name="android">
+		<source-file src="src/android/src/org/apache/cordova/facebook/ConnectPlugin.java" target-dir="src/org/apache/cordova/facebook/" />
+				
+		<!-- TODO need to support config.xml for 2.0 -->
+		<config-file target="res/xml/plugins.xml" parent="/plugins">
+		  <!-- TODO consider renaming plugin FacebookConnect -->
+		  <plugin name="org.apache.cordova.facebook.Connect" value="org.apache.cordova.facebook.ConnectPlugin"/>
+		</config-file>
+		
+		<!-- Manual steps -->
+	    <!-- edit FbDialog.java and import R.java -->
+        <!-- edit index.html and set Facebook App Id line 321 -->
+        <!-- set SDK version to 8 in AndroidManifest.xml <uses-sdk android:minSdkVersion="8" /> -->
+        <!-- set Android Key Hash on Facebook Page http://developers.facebook.com/docs/mobile/android/build/#sig -->		
+	</platform>
+	
+	<platform name="ios">
+	    <header-file src="FacebookConnectPlugin.h" />	
+	    <source-file src="FacebookConnectPlugin.m" />	
+		<plugins-plist key="org.apache.cordova.facebook.Connect" string="FacebookConnectPlugin" />
+		
+		<!-- TODO need a way to use wildcards here.  Copy the whole @#%$ing directory except xcodeproject and pch -->
+		<header-file src="lib/facebook-ios-sdk/src/Facebook.h" />
+		<header-file src="lib/facebook-ios-sdk/src/FBConnect.h" />
+		<header-file src="lib/facebook-ios-sdk/src/FBDialog.h" />
+		<header-file src="lib/facebook-ios-sdk/src/FBFrictionlessRequestSettings.h" />
+		<header-file src="lib/facebook-ios-sdk/src/FBLoginDialog.h" />
+		<header-file src="lib/facebook-ios-sdk/src/FBRequest.h" />
+
+		<source-file src="lib/facebook-ios-sdk/src/Facebook.m" />
+		<source-file src="lib/facebook-ios-sdk/src/FBConnect.m" />
+		<source-file src="lib/facebook-ios-sdk/src/FBFrictionlessRequestSettings.m" />
+		<source-file src="lib/facebook-ios-sdk/src/FBLoginDialog.m" />
+		<source-file src="lib/facebook-ios-sdk/src/FBRequest.m" />
+
+		<!-- 
+		
+		TODO whitelist
+		
+		m.facebook.com
+		graph.facebook.com
+		api.facebook.com
+		*.fbcdn.net
+		*.akamaihd.net
+		
+		-->
+		
+		
+		<!--
+		
+		TODO - insert this into the config file, but user needs to manually edit
+		
+		SchemeId - should be the app id not the plugin's id
+		AppId - is the facebook app id, "fb" prefix is required
+				
+		<key>CFBundleURLTypes</key>
+		<array>
+		    <dict>
+		        <key>CFBundleURLName</key>
+		        <string>[SCHEME_ID]</string>
+		        <key>CFBundleURLSchemes</key>
+		        <array>
+		            <string>fb[APP_ID]</string>
+		        </array>
+		    </dict>
+		</array>		
+		-->
+			
+    </platform>
+	
+</plugin>
